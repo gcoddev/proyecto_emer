@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="assets/css/vendor.css">
         <link rel="stylesheet" href="assets/css/main.css">
 
-        <title>Educrat</title>
+        <title>Registrarse | Cursos</title>
     </head>
 
     <body class="preloader-visible" data-barba="wrapper">
@@ -37,8 +37,8 @@
                             <div class="header-left">
 
                                 <div class="header__logo ">
-                                    <a data-barba href="index-2.html">
-                                        <img src="img/general/logo.svg" alt="logo">
+                                    <a data-barba href="index.jsp">
+                                        <img src="assets/img/Sistemas.png" width="100" alt="logo">
                                     </a>
                                 </div>
 
@@ -64,11 +64,7 @@
                 <section class="form-page">
                     <div class="form-page__img bg-dark-1">
                         <div class="form-page-composition">
-                            <div class="-bg"><img data-move="30" class="js-mouse-move" src="img/login/bg.png" alt="bg"></div>
-                            <div class="-el-1"><img data-move="20" class="js-mouse-move" src="img/home-9/hero/bg.png" alt="image"></div>
-                            <div class="-el-2"><img data-move="40" class="js-mouse-move" src="img/home-9/hero/1.png" alt="icon"></div>
-                            <div class="-el-3"><img data-move="40" class="js-mouse-move" src="img/home-9/hero/2.png" alt="icon"></div>
-                            <div class="-el-4"><img data-move="40" class="js-mouse-move" src="img/home-9/hero/3.png" alt="icon"></div>
+                            <div class="-el-1"><img data-move="20" class="js-mouse-move" src="assets/img/upealogo.png" alt="image"></div>
                         </div>
                     </div>
 
@@ -103,16 +99,16 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Contraseña *</label>
-                                                <input type="text" name="password1" placeholder="Contraseña" required>
+                                                <input type="password" name="password1" placeholder="Contraseña" required>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Confirmar Contraseña *</label>
-                                                <input type="text" name="password2" placeholder="Confirmar contraseña" required>
+                                                <input type="password" name="password2" placeholder="Confirmar contraseña" required>
                                             </div>
                                             <div class="col-lg-12">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Registrarse como</label>
-                                                <select name="tipo_user">
-                                                    <option>-- Seleccione opcion</option>
+                                                <select name="tipo_user" required>
+                                                    <option value="">-- Seleccione opcion</option>
                                                     <option value="ALUMNO">ALUMNO</option>
                                                     <option value="PROFESOR">PROFESOR</option>
                                                 </select>

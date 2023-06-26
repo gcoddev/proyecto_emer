@@ -6,6 +6,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>Inicio</welcome-file>
+        <welcome-file>User</welcome-file>
     </welcome-file-list>
 </web-app>

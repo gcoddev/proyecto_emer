@@ -1,8 +1,7 @@
 package com.emergentes.models;
 
-public class Alumno {
+public class Usuario {
 
-    private int id_alumno;
     private int id_usuario;
     private String nombre;
     private String paterno;
@@ -10,12 +9,20 @@ public class Alumno {
     private String fecha_nac;
     private String usuario;
     private String password;
+    private String tipo_user;
 
-    public Alumno() {
+    public Usuario() {
+        this.id_usuario = 0;
+        this.nombre = "";
+        this.paterno = "";
+        this.materno = "";
+        this.fecha_nac = "";
+        this.usuario = "";
+        this.password = "";
+        this.tipo_user = "";
     }
 
-    public Alumno(int id_alumno, int id_usuario, String nombre, String paterno, String materno, String fecha_nac, String usuario, String password) {
-        this.id_alumno = id_alumno;
+    public Usuario(int id_usuario, String nombre, String paterno, String materno, String fecha_nac, String usuario, String password, String tipo_user) {
         this.id_usuario = id_usuario;
         this.nombre = nombre;
         this.paterno = paterno;
@@ -23,14 +30,20 @@ public class Alumno {
         this.fecha_nac = fecha_nac;
         this.usuario = usuario;
         this.password = password;
+        this.tipo_user = tipo_user;
     }
-
-    public int getId_alumno() {
-        return id_alumno;
+    public Usuario(String nombre, String paterno, String materno, String fecha_nac, String usuario, String password, String tipo_user) {
+        this.nombre = nombre;
+        this.paterno = paterno;
+        this.materno = materno;
+        this.fecha_nac = fecha_nac;
+        this.usuario = usuario;
+        this.password = password;
+        this.tipo_user = tipo_user;
     }
-
-    public void setId_alumno(int id_alumno) {
-        this.id_alumno = id_alumno;
+    public Usuario(String usuario, String password) {
+        this.usuario = usuario;
+        this.password = password;
     }
 
     public int getId_usuario() {
@@ -88,4 +101,13 @@ public class Alumno {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getTipo_user() {
+        return tipo_user;
+    }
+
+    public void setTipo_user(String tipo_user) {
+        this.tipo_user = tipo_user;
+    }
+
 }

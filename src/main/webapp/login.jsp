@@ -3,6 +3,10 @@
     if (session.getAttribute("error") != null) {
         error = (String) session.getAttribute("error");
     }
+    String msg = "";
+    if (session.getAttribute("msg") != null) {
+        msg = (String) session.getAttribute("msg");
+    }
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -35,8 +39,8 @@
                             <div class="header-left">
 
                                 <div class="header__logo ">
-                                    <a data-barba href="index-2.html">
-                                        <img src="img/general/logo.svg" alt="logo">
+                                    <a data-barba href="index.jsp">
+                                        <img src="assets/img/Sistemas.png" width="100" alt="logo">
                                     </a>
                                 </div>
 
@@ -63,11 +67,7 @@
                 <section class="form-page js-mouse-move-container">
                     <div class="form-page__img bg-dark-1">
                         <div class="form-page-composition">
-                            <div class="-bg"><img data-move="30" class="js-mouse-move" src="img/login/bg.png" alt="bg"></div>
-                            <div class="-el-1"><img data-move="20" class="js-mouse-move" src="img/home-9/hero/bg.png" alt="image"></div>
-                            <div class="-el-2"><img data-move="40" class="js-mouse-move" src="img/home-9/hero/1.png" alt="icon"></div>
-                            <div class="-el-3"><img data-move="40" class="js-mouse-move" src="img/home-9/hero/2.png" alt="icon"></div>
-                            <div class="-el-4"><img data-move="40" class="js-mouse-move" src="img/home-9/hero/3.png" alt="icon"></div>
+                            <div class="-el-1"><img data-move="20" class="js-mouse-move" src="assets/img/upealogo.png" alt="image"></div>
                         </div>
                     </div>
 
@@ -82,11 +82,11 @@
                                         <form class="contact-form respondForm__form row y-gap-20 pt-30" action="User?op=1" method="POST">
                                             <div class="col-12">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nombre de usuario</label>
-                                                <input type="text" name="username" placeholder="Username">
+                                                <input type="text" name="username" placeholder="Username" required="">
                                             </div>
                                             <div class="col-12">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Contraseña</label>
-                                                <input type="password" name="password" placeholder="Password">
+                                                <input type="password" name="password" placeholder="Password" required="">
                                             </div>
                                             <div class="col-12">
                                                 <button type="submit" name="submit" id="submit" class="button -md -green-1 text-dark-1 fw-500 w-1/1">
@@ -103,8 +103,16 @@
                                         </div>
                                         <%
                                             }
+                                            if (!msg.equals("")) {
+                                        %>
+                                        <div class="alert alert-success">
+                                            <%= msg%>
+                                        </div>
+                                        <%
+                                            }
                                             HttpSession ses = request.getSession();
                                             ses.setAttribute("error", null);
+                                            ses.setAttribute("msg", null);
                                         %>
                                     </div>
                                 </div>
@@ -119,7 +127,4 @@
         <script src="assets/js/vendor.js"></script>
         <script src="assets/js/main.js"></script>
     </body>
-
-
-    <!-- Mirrored from creativelayers.net/themes/educrat-html/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 26 Jun 2023 01:39:42 GMT -->
 </html>

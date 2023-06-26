@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.emergentes.dao.DAO;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "Inicio", urlPatterns = {"/Inicio"})
 public class Inicio extends HttpServlet {
@@ -19,7 +20,10 @@ public class Inicio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        HttpSession ses = request.getSession();
+        if (ses.getAttribute("user")  != null) {
+            
+        }
     }
 
     @Override

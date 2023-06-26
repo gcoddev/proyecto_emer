@@ -1,5 +1,11 @@
 <%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    HttpSession ses = request.getSession();
+    if (ses.getAttribute("user") != null) {
+        response.sendRedirect("courses.jsp");
+    }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,8 +35,8 @@
                         <div class="col-auto">
                             <div class="header-left">
                                 <div class="header__logo">
-                                    <a data-barba href="index-2.html">
-                                        <img src="img/general/logo.svg" alt="logo" />
+                                    <a data-barba href="index.jsp">
+                                        <img src="assets/img/Sistemas.png" width="70" alt="logo" />
                                     </a>
                                 </div>
                             </div>
