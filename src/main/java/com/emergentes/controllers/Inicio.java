@@ -19,29 +19,7 @@ public class Inicio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            int id;
-            DAO dao = new DAOimpl();
-
-            String action = (request.getParameter("action") != null) ? request.getParameter("action") : "view";
-            System.out.println("Opcion enviada: " + action);
-
-            switch (action) {
-                case "add":
-                    break;
-                case "edit":
-                    break;
-                case "delete":
-                    response.sendRedirect("Inicio");
-                    break;
-                case "view":
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-        }
+        
     }
 
     @Override

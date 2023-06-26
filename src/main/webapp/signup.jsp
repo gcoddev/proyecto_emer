@@ -1,9 +1,16 @@
+<%
+    String error = "";
+    if (session.getAttribute("error") != null) {
+        error = (String) session.getAttribute("error");
+    }
+%>
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="stylesheet" href="assets/css/bootstrap.css">
         <link rel="stylesheet" href="assets/css/vendor.css">
         <link rel="stylesheet" href="assets/css/main.css">
 
@@ -73,34 +80,34 @@
                                         <h3 class="text-30 lh-13">Registrarse</h3>
                                         <p class="mt-10">¿Ya tienes una cuenta? <a href="login.html" class="text-purple-1">Iniciar sesion</a></p>
 
-                                        <form class="contact-form respondForm__form row y-gap-20 pt-30" action="" method="">
+                                        <form class="contact-form respondForm__form row y-gap-20 pt-30" action="User?op=2" method="POST">
                                             <div class="col-lg-6">
-                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nombres</label>
-                                                <input type="text" name="title" placeholder="Name">
+                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nombres *</label>
+                                                <input type="text" name="nombre" placeholder="Nombres" required>
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Fecha nacimiento</label>
-                                                <input type="date" name="title" placeholder="Name">
+                                                <input type="date" name="fecha_nac" placeholder="Fecha">
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Apellido paterno</label>
-                                                <input type="text" name="title" placeholder="Name">
+                                                <input type="text" name="paterno" placeholder="Apellido paterno">
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Apellido materno</label>
-                                                <input type="text" name="title" placeholder="Name">
+                                                <input type="text" name="materno" placeholder="Apellido materno">
                                             </div>
                                             <div class="col-lg-12">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nombre de usuario *</label>
-                                                <input type="text" name="title" placeholder="Name">
+                                                <input type="text" name="username" placeholder="Nombre de usuario" required>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Password *</label>
-                                                <input type="text" name="title" placeholder="Name">
+                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Contraseña *</label>
+                                                <input type="text" name="password1" placeholder="Contraseña" required>
                                             </div>
                                             <div class="col-lg-6">
-                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Confirm Password *</label>
-                                                <input type="text" name="title" placeholder="Name">
+                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Confirmar Contraseña *</label>
+                                                <input type="text" name="password2" placeholder="Confirmar contraseña" required>
                                             </div>
                                             <div class="col-lg-12">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Registrarse como</label>
@@ -116,14 +123,24 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        <br>
+                                        <%
+                                            if (!error.equals("")) {
+                                        %>
+                                        <div class="alert alert-danger">
+                                            <%= error%>
+                                        </div>
+                                        <%
+                                            }
+                                            HttpSession ses = request.getSession();
+                                            ses.setAttribute("errorSignup", null);
+                                        %>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-
-
             </div>
         </main>
         <script src="assets/js/vendor.js"></script>
