@@ -167,8 +167,8 @@
                                                     } else {
                                                         for (Curso curso : cursos) {
                                                     %>
-                                                    <div class="col-xl-6 h border rounded-3 gx-3">
-                                                        <div class="relative d-block rounded-8 px-10 py-10 border-light">
+                                                    <div class="col-xl-6 h gx-3 border rounded-8 gx-3">
+                                                        <div class="relative d-block rounded-8 px-10 py-10">
                                                             <div class="row x-gap-20 y-gap-20 items-center">
                                                                 <div class="col-md-auto">
                                                                     <div class="shrink-0">

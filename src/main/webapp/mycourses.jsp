@@ -219,7 +219,7 @@
                                                     </div>
 
                                                     <div class="tabs__pane -tab-item-2">
-                                                        <div class="row y-gap-10 justify-between">
+                                                        <!--<div class="row y-gap-10 justify-between">
                                                             <div class="col-auto">
                                                                 <form class="search-field border-light rounded-8 h-50" action="https://creativelayers.net/themes/educrat-html/post">
                                                                     <input class="bg-white -dark-bg-dark-2 pr-50" type="text" placeholder="Search Courses">
@@ -249,35 +249,20 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div>-->
                                                         <div class="row y-gap-30 pt-30">
 
                                                             <%
+                                                                if (cursos == null) {
+                                                            %>
+                                                            <h2>No hay cursos disponible</h2>
+                                                            <%
+                                                            } else {
                                                                 for (CursoA curso : cursos) {
                                                             %>
                                                             <div class="w-1/4 xl:w-1/3 lg:w-1/2 sm:w-1/1 border">
                                                                 <div class="relative">
                                                                     <img class="rounded-8 w-1/1" src="<%= curso.getImagen()%>" alt="image">
-
-                                                                    <button class="absolute-button" data-el-toggle=".js-more-1-toggle">
-                                                                        <span class="d-flex items-center justify-center size-35 bg-white shadow-1 rounded-8">
-                                                                            <i class="icon-menu-vertical"></i>
-                                                                        </span>
-                                                                    </button>
-
-                                                                    <div class="toggle-element -dshb-more js-more-1-toggle">
-                                                                        <div class="px-25 py-25 bg-white -dark-bg-dark-2 shadow-1 border-light rounded-8">
-                                                                            <a href="#" class="d-flex items-center">
-                                                                                <div class="icon-share"></div>
-                                                                                <div class="text-17 lh-1 fw-500 ml-12">Share</div>
-                                                                            </a>
-
-                                                                            <a href="#" class="d-flex items-center mt-20">
-                                                                                <div class="icon-bookmark"></div>
-                                                                                <div class="text-17 lh-1 fw-500 ml-12">Favorite</div>
-                                                                            </a>
-                                                                        </div>
-                                                                    </div>
                                                                 </div>
 
                                                                 <div class="pt-15">
@@ -299,6 +284,7 @@
                                                                 </div>
                                                             </div>
                                                             <%
+                                                                    }
                                                                 }
                                                             %>
                                                         </div>
