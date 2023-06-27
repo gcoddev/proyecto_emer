@@ -67,11 +67,13 @@ public class CCurso extends HttpServlet {
                     for (int i = 0; i < items.size(); i++) {
                         FileItem fileItem = (FileItem) items.get(i);
                         if (!fileItem.isFormField()) {
-                            String ruta = getServletContext().getRealPath("/");
-                            File f = new File(ruta + "images/" + fileItem.getName());
-                            imagenName = "images/" + f.getName();
-                            fileItem.write(f);
-                            imagen = f.getAbsolutePath();
+                            if (!fileItem.getName().equals("")) {
+                                String ruta = getServletContext().getRealPath("/");
+                                File f = new File(ruta + "images/" + fileItem.getName());
+                                imagenName = f.getName();
+                                fileItem.write(f);
+                                imagen = f.getAbsolutePath();
+                            }
                         } else {
                             lista.add(fileItem.getString());
                         }
@@ -79,20 +81,38 @@ public class CCurso extends HttpServlet {
                 } catch (Exception e) {
                     System.out.println("File error: " + e.getMessage());
                 }
+
                 titulo = lista.get(0);
                 categoria = lista.get(1);
                 descripcion = lista.get(2);
+                int idEdit = Integer.parseInt(lista.get(4));
 
-                try {
-                    Curso cur = new Curso(user.getId_usuario(), categoria, titulo, descripcion, fecha, "ACTIVO", imagenName);
-                    dao.insertC(cur);
-                } catch (Exception e) {
-                    System.out.println("Error al guardar datos: " + e.getMessage());
+                if (idEdit == 0) {
+                    try {
+                        Curso cur = new Curso(user.getId_usuario(), categoria, titulo, descripcion, fecha, "ACTIVO", "images/" + imagenName);
+                        dao.insertC(cur);
+                    } catch (Exception e) {
+                        System.out.println("Error al guardar datos: " + e.getMessage());
+                    }
+                } else {
+                    try {
+                        if (imagenName.equals("")) {
+                            imagenName = lista.get(3);
+                        } else {
+                            imagenName = "images/" + imagenName;
+                        }
+                        Curso cur = new Curso(idEdit, categoria, titulo, descripcion, imagenName);
+                        dao.updateC(cur);
+                    } catch (Exception e) {
+                        System.out.println("Error al guardar datos: " + e.getMessage());
+                    }
                 }
                 response.sendRedirect("dashboard.jsp");
                 break;
 
             // Edit course 2
+            case 2:
+                break;
             // 3
             // Delete course
             case 4:

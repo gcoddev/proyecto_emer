@@ -105,7 +105,7 @@
                                             </div>
                                         </form>
                                         <br>
-                                        <%                                            
+                                        <%
                                             if (!error.equals("")) {
                                         %>
                                         <div class="alert alert-danger">
@@ -120,9 +120,8 @@
                                         </div>
                                         <%
                                             }
-                                            HttpSession ses = request.getSession();
-                                            ses.setAttribute("error", null);
-                                            ses.setAttribute("msg", null);
+                                            session.setAttribute("error", null);
+                                            session.setAttribute("msg", null);
                                         %>
                                     </div>
                                 </div>

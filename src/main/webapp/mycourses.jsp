@@ -166,8 +166,12 @@
                                                 <div class="tabs__content py-30 px-30 js-tabs-content">
                                                     <div class="tabs__pane -tab-item-1 is-active">
                                                         <div class="row y-gap-30 pt-30">
-
                                                             <%
+                                                                if (inscrito == null) {
+                                                            %>
+                                                            <h2>No hay cursos</h2>
+                                                            <%
+                                                            } else {
                                                                 for (Inscrito ins : inscrito) {
                                                             %>
                                                             <div class="w-1/5 xl:w-1/3 lg:w-1/2 sm:w-1/1">
@@ -207,6 +211,7 @@
                                                                 </div>
                                                             </div>
                                                             <%
+                                                                    }
                                                                 }
                                                             %>
 

@@ -160,6 +160,11 @@
                                                 <div class="row y-gap-30">
 
                                                     <%
+                                                        if (cursos == null) {
+                                                    %>
+                                                    <h2>No hay cursos</h2>
+                                                    <%
+                                                    } else {
                                                         for (Curso curso : cursos) {
                                                     %>
                                                     <div class="col-xl-6 h border rounded-3 gx-3">
@@ -201,12 +206,13 @@
                                                                 </div>
                                                             </div>
                                                             <div class="row x-gap-20 y-gap-20 items-center">
-                                                                <button class="btn btn-warning col-3 ms-1 text-dark"><i class="fa fa-edit"></i>&nbsp; Editar</button>
+                                                                <a href="course.jsp?id=<%= curso.getId_curso()%>" class="btn btn-warning col-3 ms-1 text-dark"><i class="fa fa-edit"></i>&nbsp; Editar</a>
                                                                 <button class="btn btn-danger col-3 ms-1 text-light" onclick="msgEliminar('<%= curso.getId_curso()%>')"><i class="fa fa-remove"></i>&nbsp; Eliminar</button>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <%
+                                                            }
                                                         }
                                                     %>
 

@@ -89,7 +89,7 @@
                                         <form class="contact-form respondForm__form row y-gap-20 pt-30" action="User?op=2" method="POST">
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nombres *</label>
-                                                <input type="text" name="nombre" placeholder="Nombres" required>
+                                                <input type="text" name="nombre" placeholder="Nombres" required onkeyup="mayus(this);">
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Fecha nacimiento</label>
@@ -97,11 +97,11 @@
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Apellido paterno</label>
-                                                <input type="text" name="paterno" placeholder="Apellido paterno">
+                                                <input type="text" name="paterno" placeholder="Apellido paterno" onkeyup="mayus(this);">
                                             </div>
                                             <div class="col-lg-6">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Apellido materno</label>
-                                                <input type="text" name="materno" placeholder="Apellido materno">
+                                                <input type="text" name="materno" placeholder="Apellido materno" onkeyup="mayus(this);">
                                             </div>
                                             <div class="col-lg-12">
                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nombre de usuario *</label>
@@ -138,8 +138,7 @@
                                         </div>
                                         <%
                                             }
-                                            HttpSession ses = request.getSession();
-                                            ses.setAttribute("errorSignup", null);
+                                            session.setAttribute("error", null);
                                         %>
                                     </div>
                                 </div>
@@ -151,6 +150,11 @@
         </main>
         <script src="assets/js/vendor.js"></script>
         <script src="assets/js/main.js"></script>
+        <script>
+                                                    function mayus(e) {
+                                                        e.value = e.value.toUpperCase();
+                                                    }
+        </script>
     </body>
 
 </html>

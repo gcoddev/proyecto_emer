@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "User", urlPatterns = {"/User"})
 public class User extends HttpServlet {
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -37,7 +37,7 @@ public class User extends HttpServlet {
                 System.out.println("Sin opcion");
         }
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,7 +47,7 @@ public class User extends HttpServlet {
         ses = request.getSession();
         ses.setAttribute("error", null);
         DAO dao = new DAOimpl();
-
+        
         switch (op) {
             case 1:
                 usuario = request.getParameter("username");
@@ -57,20 +57,20 @@ public class User extends HttpServlet {
                     user = dao.login(usuario, password);
                     if (user.getId_usuario() != 0) {
                         ses.setAttribute("user", user);
-                        ses.setAttribute("msg", "Inicio de sesion correcto");
                         if (user.getTipo_user().equals("PROFESOR")) {
                             response.sendRedirect("dashboard.jsp");
                         } else if (user.getTipo_user().equals("ALUMNO")) {
                             response.sendRedirect("mycourses.jsp");
                         }
                     } else {
-                        ses.setAttribute("error", "El usuario o la contraseña no es valido");
+                        ses.setAttribute("error", "Las credenciales de acceso son incorrectas");
                         response.sendRedirect("login.jsp");
                     }
                 } catch (Exception e) {
+                    ses.setAttribute("error", "Error al iniciar sesion");
                     System.out.println("Error al iniciar sesion... " + e.getMessage());
                 }
-
+                
                 break;
             case 2:
                 String nombre = request.getParameter("nombre");
@@ -81,7 +81,7 @@ public class User extends HttpServlet {
                 String password1 = request.getParameter("password1");
                 String password2 = request.getParameter("password2");
                 String tipo_user = request.getParameter("tipo_user");
-
+                
                 if (!password1.equals(password2)) {
                     ses.setAttribute("error", "Las contraseñas no coinciden");
                     response.sendRedirect("signup.jsp");
@@ -89,15 +89,19 @@ public class User extends HttpServlet {
                     try {
                         Usuario al = new Usuario(nombre, paterno, materno, fecha_nac, usuario, password1, tipo_user);
                         dao.insertU(al);
+                        ses.setAttribute("msg", "Cuentra creada existosamente.");
+                        response.sendRedirect("login.jsp");
                     } catch (Exception e) {
                         System.out.println("Error al guardar datos... " + e.getMessage());
+                        ses.setAttribute("error", "Error al crear la cuenta, porfavor vuelva a intentarlo. Asegurese de haber llenado todos los campos.");
+                        response.sendRedirect("signup.jsp");
                     }
-                    response.sendRedirect("login.jsp");
+                    
                 }
                 break;
             case 3:
                 ses.setAttribute("user", null);
-                ses.setAttribute("msg", "Cerrado sesion con exito");
+                ses.setAttribute("msg", "Sesion cerrada exitosamente.");
                 response.sendRedirect("login.jsp");
                 break;
             default:

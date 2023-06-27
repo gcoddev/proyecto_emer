@@ -14,6 +14,22 @@ public class Curso {
     private String imagen;
 
     public Curso() {
+        this.id_curso = 0;
+        this.id_prof = 0;
+        this.categoria = "";
+        this.titulo = "";
+        this.descripcion_cur = "";
+        this.fecha_subido = "";
+        this.estado_cur = "";
+        this.imagen = "";
+    }
+
+    public Curso(int id_curso, String categoria, String titulo, String descripcion_cur, String imagen) {
+        this.id_curso = id_curso;
+        this.categoria = categoria;
+        this.titulo = titulo;
+        this.descripcion_cur = descripcion_cur;
+        this.imagen = imagen;
     }
 
     public Curso(int id_curso, int id_prof, String categoria, String titulo, String descripcion_cur, String fecha_subido, String estado_cur, String imagen) {

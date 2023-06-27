@@ -215,6 +215,11 @@
                                     <div class="row y-gap-30 justify-center">
 
                                         <%
+                                            if (cursos.isEmpty()) {
+                                        %>
+                                        <h2>No hay cursos</h2>
+                                        <%
+                                        } else {
                                             for (CursoA curso : cursos) {
                                         %>
                                         <div class="col-lg-2 col-md-4">
@@ -265,6 +270,7 @@
                                             </div>
                                         </div>
                                         <%
+                                                }
                                             }
                                         %>
 

@@ -1,15 +1,17 @@
+<%@page import="com.emergentes.dao.DAOimpl"%>
+<%@page import="com.emergentes.dao.DAO"%>
 <%@page import="com.emergentes.models.Curso"%>
 <%@page import="com.emergentes.models.Usuario"%>
 <%@page import="java.util.List"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    HttpSession ses = request.getSession();
     Usuario user = new Usuario();
-    if (ses.getAttribute("user") != null) {
-        user = (Usuario) ses.getAttribute("user");
+    Curso cur = new Curso();
+    if (session.getAttribute("user") != null) {
+        user = (Usuario) session.getAttribute("user");
+        DAO dao = new DAOimpl();
         if (request.getParameter("id") != null) {
-            Curso cur = new Curso();
-
+            cur = dao.getByIdC(Integer.parseInt(request.getParameter("id")));
         }
     } else {
         response.sendRedirect("login.jsp");
@@ -151,38 +153,66 @@
                                                         <form  action="CCurso?op=1" method="POST" enctype="multipart/form-data" class="contact-form row y-gap-30">
                                                             <div class="col-md-12">
                                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Titulo del curso</label>
-                                                                <input type="text" placeholder="Titulo" name="titulo" id="titulo" required>
+                                                                <input type="text" placeholder="Titulo" name="titulo" id="titulo" required value="<%= cur.getTitulo()%>">
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10" for="categoria">Categoria</label>
                                                                 <select name="categoria" id="categoria" required>
                                                                     <option value="">-- Seleccione categoria</option>
-                                                                    <option value="DESARROLLO">DESARROLLO</option>
-                                                                    <option value="NEGOCIOS">NEGOCIOS</option>
-                                                                    <option value="FINANZAS">FINANZAS</option>
-                                                                    <option value="INFORMATICA">INFORMATICA</option>
-                                                                    <option value="OFICINA">OFICINA</option>
-                                                                    <option value="DESARROLLO">DESARROLLO</option>
-                                                                    <option value="PERSONAL">PERSONAL</option>
-                                                                    <option value="DISEÑO">DISEÑO</option>
-                                                                    <option value="MARKETING">MARKETING</option>
-                                                                    <option value="ESTILO DE VIDA">ESTILO DE VIDA</option>
-                                                                    <option value="FOTOGRAFIA">FOTOGRAFIA</option>
-                                                                    <option value="SALUD">SALUD</option>
-                                                                    <option value="MUSICA">MUSICA</option>
+                                                                    <option value="DESARROLLO" <% if (cur.getCategoria().equals("DESARROLLO")) { %>selected<% }%>>DESARROLLO</option>
+                                                                    <option value="NEGOCIOS" <% if (cur.getCategoria().equals("NEGOCIOS")) { %>selected<% }%>>NEGOCIOS</option>
+                                                                    <option value="FINANZAS" <% if (cur.getCategoria().equals("FINANZAS")) { %>selected<% }%>>FINANZAS</option>
+                                                                    <option value="INFORMATICA"'<% if (cur.getCategoria().equals("INFORMATICA")) { %>selected<% }%>>INFORMATICA</option>
+                                                                    <option value="OFICINA" <% if (cur.getCategoria().equals("OFICINA")) { %>selected<% }%>>OFICINA</option>
+                                                                    <option value="PERSONAL"'<% if (cur.getCategoria().equals("PERSONAL")) { %>selected<% }%>>PERSONAL</option>
+                                                                    <option value="DISEÑO" <% if (cur.getCategoria().equals("DISEÑO")) { %>selected<% }%>>DISEÑO</option>
+                                                                    <option value="MARKETING" <% if (cur.getCategoria().equals("MARKETING")) { %>selected<% }%>>MARKETING</option>
+                                                                    <option value="ESTILO DE VIDA" <% if (cur.getCategoria().equals("ESTILO DE VIDA")) { %>selected<% }%>>ESTILO DE VIDA</option>
+                                                                    <option value="FOTOGRAFIA" <% if (cur.getCategoria().equals("FOTOGRAFIA")) { %>selected<% }%>>FOTOGRAFIA</option>
+                                                                    <option value="SALUD" <% if (cur.getCategoria().equals("SALUD")) { %>selected<% }%>>SALUD</option>
+                                                                    <option value="MUSICA" <% if (cur.getCategoria().equals("MUSICA")) { %>selected<% }%>>MUSICA</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-12">
                                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Descripcion</label>
-                                                                <textarea placeholder="Descripcion..." rows="2" name="descripcion" required maxlength="200"></textarea>
+                                                                <textarea placeholder="Descripcion..." rows="2" name="descripcion" required maxlength="200"><%= cur.getDescripcion_cur()%></textarea>
                                                             </div>
+                                                            <input type="hidden" name="imagenName" value="<%= cur.getImagen()%>">
+                                                            <input type="hidden" name="id_curso" value="<%= cur.getId_curso()%>">
+
+                                                            <%
+                                                                if (cur.getId_curso() != 0) {
+                                                            %>
+                                                            <div class="col-2">
+                                                                <img src="<%= cur.getImagen()%>" alt="imagen"/>
+                                                            </div>
+                                                            <div class="col-10">
+                                                                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Imagen de portada</label>
+                                                                <input type="file" name="imagen">
+                                                            </div>
+                                                            <%
+                                                            } else {
+                                                            %>
                                                             <div class="col-12">
                                                                 <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Imagen de portada</label>
                                                                 <input type="file" name="imagen" required>
                                                             </div>
+                                                            <%
+                                                                }
+                                                                if (cur.getId_curso() != 0) {
+                                                            %>
                                                             <div class="col-3">
-                                                                <button type="submit" class="button -md -purple-1 text-white">Crear curso</button>
+                                                                <button type="submit" class="button -md -warning-2 text-dark">Editar curso</button>
                                                             </div>
+                                                            <%
+                                                            } else {
+                                                            %>
+                                                            <div class="col-3">
+                                                                <button type="submit" class="button -md -success-2 text-white">Crear curso</button>
+                                                            </div>
+                                                            <%
+                                                                }
+                                                            %>
                                                             <div class="col-3">
                                                                 <a href="dashboard.jsp" class="button -md -black text-white">Volver</a>
                                                             </div>
