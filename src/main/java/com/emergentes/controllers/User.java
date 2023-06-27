@@ -2,10 +2,12 @@ package com.emergentes.controllers;
 
 import com.emergentes.dao.DAO;
 import com.emergentes.dao.DAOimpl;
+import com.emergentes.models.Curso;
 import com.emergentes.models.Usuario;
 import com.mysql.cj.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +21,21 @@ public class User extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession ses = request.getSession();
+        ses = request.getSession();
+        int op = Integer.parseInt(request.getParameter("op"));
+        switch (op) {
+            case 1:
+                response.sendRedirect("course.jsp");
+                break;
+            case 2:
+                System.out.println("Editar curso");
+                int id = Integer.parseInt(request.getParameter("id"));
+                response.sendRedirect("course.jsp?id=" + id);
+                break;
+            default:
+                System.out.println("Sin opcion");
+        }
     }
 
     @Override
@@ -41,13 +58,17 @@ public class User extends HttpServlet {
                     if (user.getId_usuario() != 0) {
                         ses.setAttribute("user", user);
                         ses.setAttribute("msg", "Inicio de sesion correcto");
-                        response.sendRedirect("index.jsp");
+                        if (user.getTipo_user().equals("PROFESOR")) {
+                            response.sendRedirect("dashboard.jsp");
+                        } else if (user.getTipo_user().equals("ALUMNO")) {
+                            response.sendRedirect("mycourses.jsp");
+                        }
                     } else {
                         ses.setAttribute("error", "El usuario o la contraseña no es valido");
                         response.sendRedirect("login.jsp");
                     }
                 } catch (Exception e) {
-                    System.out.println("Error al guardar datos... " + e.getMessage());
+                    System.out.println("Error al iniciar sesion... " + e.getMessage());
                 }
 
                 break;
@@ -68,12 +89,16 @@ public class User extends HttpServlet {
                     try {
                         Usuario al = new Usuario(nombre, paterno, materno, fecha_nac, usuario, password1, tipo_user);
                         dao.insertU(al);
-                        ses.setAttribute("msg", "Usuario agregado correctamente");
                     } catch (Exception e) {
                         System.out.println("Error al guardar datos... " + e.getMessage());
                     }
                     response.sendRedirect("login.jsp");
                 }
+                break;
+            case 3:
+                ses.setAttribute("user", null);
+                ses.setAttribute("msg", "Cerrado sesion con exito");
+                response.sendRedirect("login.jsp");
                 break;
             default:
                 throw new AssertionError();

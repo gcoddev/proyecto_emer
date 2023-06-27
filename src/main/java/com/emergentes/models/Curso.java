@@ -1,25 +1,40 @@
 package com.emergentes.models;
 
+import java.sql.Blob;
+
 public class Curso {
+
     private int id_curso;
+    private int id_prof;
     private String categoria;
     private String titulo;
     private String descripcion_cur;
     private String fecha_subido;
     private String estado_cur;
-    private int id_prof;
+    private String imagen;
 
     public Curso() {
     }
 
-    public Curso(int id_curso, String categoria, String titulo, String descripcion_cur, String fecha_subido, String estado_cur, int id_prof) {
+    public Curso(int id_curso, int id_prof, String categoria, String titulo, String descripcion_cur, String fecha_subido, String estado_cur, String imagen) {
         this.id_curso = id_curso;
+        this.id_prof = id_prof;
         this.categoria = categoria;
         this.titulo = titulo;
         this.descripcion_cur = descripcion_cur;
         this.fecha_subido = fecha_subido;
         this.estado_cur = estado_cur;
+        this.imagen = imagen;
+    }
+
+    public Curso(int id_prof, String categoria, String titulo, String descripcion_cur, String fecha_subido, String estado_cur, String imagen) {
         this.id_prof = id_prof;
+        this.categoria = categoria;
+        this.titulo = titulo;
+        this.descripcion_cur = descripcion_cur;
+        this.fecha_subido = fecha_subido;
+        this.estado_cur = estado_cur;
+        this.imagen = imagen;
     }
 
     public int getId_curso() {
@@ -78,5 +93,12 @@ public class Curso {
         this.id_prof = id_prof;
     }
 
-    
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
 }

@@ -1,4 +1,14 @@
+<%@page import="com.emergentes.models.Usuario"%>
 <%
+    Usuario user = null;
+    if (session.getAttribute("user") != null) {
+        user = (Usuario) session.getAttribute("user");
+        if (user.getTipo_user().equals("PROFESOR")) {
+            response.sendRedirect("dashboard.jsp");
+        } else if (user.getTipo_user().equals("ALUMNO")) {
+            response.sendRedirect("mycourses.jsp");
+        }
+    }
     String error = "";
     if (session.getAttribute("error") != null) {
         error = (String) session.getAttribute("error");

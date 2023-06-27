@@ -1,5 +1,8 @@
 package com.emergentes.dao;
 
+import com.emergentes.models.Curso;
+import com.emergentes.models.CursoA;
+import com.emergentes.models.Inscrito;
 import com.emergentes.utils.ConexionDB;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.emergentes.models.Usuario;
+import java.io.ObjectInputStream;
+import java.sql.Blob;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.ListIterator;
 import javax.servlet.http.HttpSession;
 
 public class DAOimpl extends ConexionDB implements DAO {
@@ -53,7 +61,7 @@ public class DAOimpl extends ConexionDB implements DAO {
                 user.setPassword(rs.getString("contraseña"));
                 user.setTipo_user(rs.getString("tipo_user"));
             }
-            
+
             return user;
         } catch (Exception e) {
             throw e;
@@ -78,37 +86,8 @@ public class DAOimpl extends ConexionDB implements DAO {
 //        }
 //    }
 //
-//    @Override
-//    public void update(Aviso aviso) throws Exception {
-//        try {
-//            this.conectDB();
-//            String sql = "UPDATE avisos SET titulo = ?, contenido = ? WHERE id = ?";
-//            PreparedStatement ps = this.conn.prepareStatement(sql);
-//            ps.setString(1, aviso.getTitulo());
-//            ps.setString(2, aviso.getContenido());
-//            ps.setInt(3, aviso.getId());
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.disconnectBD();
-//        }
-//    }
+
 //
-//    @Override
-//    public void delete(int id) throws Exception {
-//        try {
-//            this.conectDB();
-//            String sql = "DELETE FROM avisos WHERE id = ?";
-//            PreparedStatement ps = this.conn.prepareStatement(sql);
-//            ps.setInt(1, id);
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.disconnectBD();
-//        }
-//    }
 //
 //    @Override
 //    public Aviso getById(int id) throws Exception {
@@ -134,45 +113,7 @@ public class DAOimpl extends ConexionDB implements DAO {
 //        return avi;
 //    }
 //
-//    @Override
-//    public List<Aviso> getAll() throws Exception {
-//        List<Aviso> lista = null;
-//        try {
-//            this.conectDB();
-//            String sql = "SELECT * FROM avisos";
-//            PreparedStatement ps = this.conn.prepareStatement(sql);
-//            ResultSet rs = ps.executeQuery();
-//
-//            lista = new ArrayList<Aviso>();
-//            while (rs.next()) {
-//                Aviso avi = new Aviso();
-//                avi.setId(rs.getInt("id"));
-//                avi.setTitulo(rs.getString("titulo"));
-//                avi.setContenido(rs.getString("contenido"));
-//
-//                lista.add(avi);
-//            }
-//
-//            rs.close();
-//            ps.close();
-//        } catch (Exception e) {
-//            throw e;
-//        } finally {
-//            this.disconnectBD();
-//        }
-//
-//        return lista;
-//    }
 
-    @Override
-    public void updateU(Usuario user) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void deleteU(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public Usuario getByIdU(int id) throws Exception {
@@ -180,7 +121,191 @@ public class DAOimpl extends ConexionDB implements DAO {
     }
 
     @Override
-    public List<Usuario> getAllU() throws Exception {
+    public void insertC(Curso cur) throws Exception {
+        try {
+            this.conectDB();
+            String sql = "INSERT INTO cursos (id_prof, categoria, titulo, descripcion, fecha_subido, estado, imagen) VALUES(?, ?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setInt(1, cur.getId_prof());
+            ps.setString(2, cur.getCategoria());
+            ps.setString(3, cur.getTitulo());
+            ps.setString(4, cur.getDescripcion_cur());
+            ps.setString(5, cur.getFecha_subido());
+            ps.setString(6, cur.getEstado_cur());
+            ps.setString(7, cur.getImagen());
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.disconnectBD();
+        }
+    }
+
+    @Override
+    public void updateC(Usuario user) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void deleteC(int id) throws Exception {
+        try {
+            this.conectDB();
+            String sql = "DELETE FROM cursos WHERE id_curso = ?";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.disconnectBD();
+        }
+    }
+
+    @Override
+    public void estadoC(int id, String estado) throws Exception {
+        try {
+            this.conectDB();
+            if (estado.equals("ACTIVO")) {
+                String sql = "UPDATE cursos SET estado = 'INACTIVO' WHERE id_curso = ?";
+                PreparedStatement ps = this.conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ps.executeUpdate();
+            } else {
+                String sql = "UPDATE cursos SET estado = 'ACTIVO' WHERE id_curso = ?";
+                PreparedStatement ps = this.conn.prepareStatement(sql);
+                ps.setInt(1, id);
+                ps.executeUpdate();
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.disconnectBD();
+        }
+    }
+
+    @Override
+    public Usuario getByIdC(int id) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<CursoA> getAll() throws Exception {
+        List<CursoA> cursos = null;
+        this.conectDB();
+        try {
+            String sql = "SELECT c.id_curso, c.id_prof, c.categoria, c.titulo, c.descripcion, c.fecha_subido, c.estado, c.imagen, u.nombre, u.paterno, u.materno "
+                    + "FROM cursos c, usuario u WHERE c.id_prof = u.id_usuario AND c.estado = 'ACTIVO'";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            cursos = new ArrayList<CursoA>();
+            while (rs.next()) {
+                CursoA cur = new CursoA();
+                cur.setId_curso(rs.getInt("id_curso"));
+                cur.setId_prof(rs.getInt("id_prof"));
+                cur.setCategoria(rs.getString("categoria"));
+                cur.setTitulo(rs.getString("titulo"));
+                cur.setDescripcion_cur(rs.getString("descripcion"));
+                cur.setFecha_subido(rs.getString("fecha_subido"));
+                cur.setEstado_cur(rs.getString("estado"));
+                cur.setImagen(rs.getString("imagen"));
+                cur.setNombre_prof(rs.getString("nombre"));
+                cur.setPaterno_prof(rs.getString("paterno"));
+                cur.setMaterno_prof(rs.getString("materno"));
+
+                cursos.add(cur);
+            }
+
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.disconnectBD();
+        }
+
+        return cursos;
+    }
+
+    @Override
+    public List<Curso> getAllC(int id) throws Exception {
+        List<Curso> cursos = null;
+        this.conectDB();
+        try {
+            String sql = "SELECT * FROM cursos WHERE id_prof = ?";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            cursos = new ArrayList<Curso>();
+            while (rs.next()) {
+                Curso cur = new Curso();
+                cur.setId_curso(rs.getInt("id_curso"));
+                cur.setId_prof(rs.getInt("id_prof"));
+                cur.setCategoria(rs.getString("categoria"));
+                cur.setTitulo(rs.getString("titulo"));
+                cur.setDescripcion_cur(rs.getString("descripcion"));
+                cur.setFecha_subido(rs.getString("fecha_subido"));
+                cur.setEstado_cur(rs.getString("estado"));
+                cur.setImagen(rs.getString("imagen"));
+
+                cursos.add(cur);
+            }
+
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.disconnectBD();
+        }
+
+        return cursos;
+    }
+
+    @Override
+    public List<Inscrito> getAllIns(int id) throws Exception {
+        List<Inscrito> inscrito = null;
+        this.conectDB();
+        try {
+            String sql = "SELECT i.id_ins, i.id_alumno, i.id_curso, i.fecha_ins, c.id_prof, c.categoria, c.titulo, c.descripcion, c.fecha_subido, c.imagen, u.nombre, u.paterno, u.materno "
+                    + "FROM inscrito i, cursos c, usuario u "
+                    + "WHERE i.id_curso = c.id_curso "
+                    + "AND c.id_prof = u.id_usuario "
+                    + "AND i.id_alumno  = ?;";
+            PreparedStatement ps = this.conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            inscrito = new ArrayList<Inscrito>();
+            while (rs.next()) {
+                Inscrito cur = new Inscrito();
+
+                cur.setId_ins(rs.getInt("id_ins"));
+                cur.setId_alumno(rs.getInt("id_alumno"));
+                cur.setId_curso(rs.getInt("id_curso"));
+                cur.setFecha_ins("fecha_ins");
+                cur.setId_prof(rs.getInt("id_prof"));
+                cur.setCategoria(rs.getString("categoria"));
+                cur.setTitulo(rs.getString("titulo"));
+                cur.setDescripcion_cur(rs.getString("descripcion"));
+                cur.setFecha(rs.getString("fecha_subido"));
+                cur.setImagen(rs.getString("imagen"));
+                cur.setNombre_prof("nombre");
+                cur.setPaterno_prof("paterno");
+                cur.setMaterno_prof("materno");
+
+                inscrito.add(cur);
+            }
+
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.disconnectBD();
+        }
+
+        return inscrito;
     }
 }
